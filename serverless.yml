@@ -1,0 +1,27 @@
+service:
+  name: transformatter-json-services
+
+plugins:
+  - serverless-webpack
+  - serverless-dotenv-plugin
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  region: us-west-2
+  memorySize: 512
+  environtment:
+    DB_ENGINE: ${env:DB_ENGINE}
+    DB_HOST: ${env:DB_HOST}
+    DB_PORT: ${env:DB_PORT}
+    DB_USER: ${env:DB_USER}
+    DB_PASSWORD: ${env:DB_PASSWORD}
+    DB_NAME: ${env:DB_NAME}
+
+functions:
+  index:
+    handler: src/handler.index
+    events:
+      - http:
+          method: any
+          path: 'v1/{proxy+}'
