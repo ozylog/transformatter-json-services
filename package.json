@@ -1,14 +1,13 @@
 {
    "name": "transformatter-json-services",
-   "version": "0.1.0",
+   "version": "0.1.1",
    "description": "JSON Transformatter Services",
    "author": "Cahya Pribadi <ozylog@gmail.com>",
    "private": true,
    "main": "src/handler.js",
    "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1",
-      "start": "ts-node src/index.ts",
-      "deploy:production": "NODE_ENV=production serverless deploy --stage production"
+      "lint": "echo \"Error: no linter\"",
+      "test": "echo \"Error: no test specified\""
    },
    "dependencies": {
       "ajv": "^6.10.2",

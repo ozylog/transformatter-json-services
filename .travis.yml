@@ -1,11 +1,16 @@
-branches:
-  only:
-  - master
 language: node_js
 node_js:
   - 10
 install:
+  - yarn global add serverless@1.50
   - yarn install
 script:
-  - yarn deploy:production --force
+  - yarn lint
+  - yarn test
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: NODE_ENV=production serverless deploy --stage production --force
+  on:
+    branch: master
 
