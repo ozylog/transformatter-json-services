@@ -1,4 +1,9 @@
-# json-transformatter-services
+# transformatter-json-services
+
+![Build](https://badgen.net/travis/transformatter/transformatter-json-services/master)
+![Coverage](https://badgen.net/coveralls/c/github/transformatter/transformatter-json-services/master)
+![Latest Tag](https://badgen.net/github/tag/transformatter/transformatter-json-services)
+![License](https://badgen.net/github/license/transformatter/transformatter-json-services)
 
 ## Install
 ```
@@ -15,11 +20,6 @@ DB_USER=
 DB_PASSWORD=
 DB_NAME=
 
-```
-
-## Deploy to production
-```
-yarn deploy:production
 ```
 
 ## License

@@ -10,18 +10,16 @@ provider:
   runtime: nodejs10.x
   region: us-west-2
   memorySize: 512
-  environtment:
-    DB_ENGINE: ${env:DB_ENGINE}
-    DB_HOST: ${env:DB_HOST}
-    DB_PORT: ${env:DB_PORT}
-    DB_USER: ${env:DB_USER}
-    DB_PASSWORD: ${env:DB_PASSWORD}
-    DB_NAME: ${env:DB_NAME}
 
 functions:
-  index:
-    handler: src/handler.index
+  v1:
+    handler: src/handler.v1
     events:
       - http:
           method: any
           path: 'v1/{proxy+}'
+custom:
+  webpack:
+    includeModules:
+      forceInclude:
+        - pg

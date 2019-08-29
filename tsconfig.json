@@ -10,11 +10,9 @@
     ],
     "module": "commonjs",
     "moduleResolution": "node",
-    "outDir": "./build",
     "paths": {
       "@src/*": [ "./src/*" ]
     },
-    "sourceMap": true,
-    "target": "es5",
+    "target": "es5"
   }
 }
