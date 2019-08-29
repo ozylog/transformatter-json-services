@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.1.2] - 2019-08-29
+### Fixed
+- Fixed serverless.yml
+
 ## [v0.1.1] - 2019-08-27
 ### Fixed
 - Fixed .travis.yml

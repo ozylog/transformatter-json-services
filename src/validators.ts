@@ -33,7 +33,6 @@ export function findById(req: findByIdReq) {
 }
 
 export function operate(req: OperateReq) {
-  console.log(req);
   const validator = getValidator();
   const schema = {
     type: 'object',

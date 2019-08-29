@@ -10,7 +10,7 @@ script:
 deploy:
   provider: script
   skip_cleanup: true
-  script: NODE_ENV=production serverless deploy --stage production --force
+  script: NODE_ENV=production sls deploy -s production -v --force
   on:
     branch: master
 
