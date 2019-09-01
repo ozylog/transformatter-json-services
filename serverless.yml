@@ -17,7 +17,7 @@ functions:
     events:
       - http:
           method: any
-          path: 'v1/{proxy+}'
+          path: 'api/v1/jsons/{proxy+}'
 custom:
   webpack:
     includeModules:
