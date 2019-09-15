@@ -4,7 +4,9 @@ import lambdaApi from 'lambda-api';
 import * as middlewares from '@src/middlewares';
 
 const { MIME } = middlewares;
-const app = lambdaApi({ version: 'v1.0', base: 'v1', logger: true });
+const app = lambdaApi({ version: 'v0.2.0', base: 'api/v1/jsons', logger: true });
+
+app.use(middlewares.preHandler);
 
 app.get(
   '/:id',

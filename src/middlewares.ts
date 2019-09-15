@@ -1,5 +1,5 @@
 import Json from '@src/db/models/Json';
-import { Heror, InternalServerError, NotFoundError, NotAcceptableError } from 'heror';
+import { Heror, NotFoundError, NotAcceptableError, BadRequestError } from 'heror';
 import { Request, Response, NextFunction } from 'lambda-api';
 import jsonStableStringify from 'json-stable-stringify';
 import * as validators from '@src/validators';
@@ -21,7 +21,15 @@ export async function operate(req: validators.OperateReq) {
   let result;
 
   if (operator === Operator.BEAUTIFY_JSON && inputFormat === Format.JSON && outputFormat === Format.JSON) {
-    const json = JSON.parse(input);
+    let json;
+
+    try {
+      json = JSON.parse(input);
+    } catch (err) {
+      throw new BadRequestError('Invalid JSON');
+    }
+
+    if (json === null || json === undefined || typeof json !== 'object') throw new BadRequestError('Invalid JSON');
 
     if (outputStable) {
       result = jsonStableStringify(json, { space: outputSpace || 0 });
@@ -51,7 +59,16 @@ export function validateHeaders({ accept, contentType }: HeadersInput) {
   };
 }
 
+export function preHandler(req: Request, res: Response, next: NextFunction) {
+  const { query, params, body } = req;
+
+  req.log.info(JSON.stringify({ query, params, body }));
+  next();
+}
+
 export function errorHander(err: Error, req: Request, res: Response, next: NextFunction) {
+  // @ts-ignore
+  const { _state: resState, _statusCode: resStatusCode } = res;
   const defaultMessage = 'Oops...something went wrong';
 
   if (err instanceof Heror) {
@@ -62,19 +79,14 @@ export function errorHander(err: Error, req: Request, res: Response, next: NextF
       error,
       message: statusCode === 500 ? defaultMessage : message
     });
-  } else {
-    const { statusCode, error } = new InternalServerError();
-
-    res.status(statusCode).send({
-      statusCode,
-      error,
-      message: defaultMessage
+  } else if(resState === 'error' && resStatusCode) {
+    res.status(resStatusCode).send({
+      statusCode: resStatusCode,
+      message: resStatusCode === 500 ? defaultMessage : err.message
     });
   }
-
   next();
 }
-
 
 interface HeadersInput {
   accept?: MIME | MIME[];
