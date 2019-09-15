@@ -1,5 +1,5 @@
 import Json from '@src/db/models/Json';
-import { Heror, NotFoundError, NotAcceptableError } from 'heror';
+import { Heror, NotFoundError, NotAcceptableError, BadRequestError } from 'heror';
 import { Request, Response, NextFunction } from 'lambda-api';
 import jsonStableStringify from 'json-stable-stringify';
 import * as validators from '@src/validators';
@@ -21,7 +21,15 @@ export async function operate(req: validators.OperateReq) {
   let result;
 
   if (operator === Operator.BEAUTIFY_JSON && inputFormat === Format.JSON && outputFormat === Format.JSON) {
-    const json = JSON.parse(input);
+    let json;
+
+    try {
+      json = JSON.parse(input);
+    } catch (err) {
+      throw new BadRequestError('Invalid JSON');
+    }
+
+    if (json === null || json === undefined || typeof json !== 'object') throw new BadRequestError('Invalid JSON');
 
     if (outputStable) {
       result = jsonStableStringify(json, { space: outputSpace || 0 });
