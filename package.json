@@ -1,6 +1,6 @@
 {
    "name": "transformatter-json-services",
-   "version": "0.1.2",
+   "version": "0.2.0",
    "description": "JSON Transformatter Services",
    "author": "Cahya Pribadi <ozylog@gmail.com>",
    "private": true,
