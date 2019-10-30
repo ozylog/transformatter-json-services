@@ -14,7 +14,7 @@
       "aws-sdk": "^2.516.0",
       "heror": "^1.0.0",
       "json-stable-stringify": "^1.0.1",
-      "knex": "^0.19.2",
+      "knex": "^0.19.5",
       "lambda-api": "^0.10.2",
       "objection": "^1.6.9",
       "pg": "^7.12.1"
