@@ -11,24 +11,24 @@
    },
    "dependencies": {
       "ajv": "^6.10.2",
-      "aws-sdk": "^2.516.0",
+      "aws-sdk": "^2.584.0",
       "heror": "^1.0.0",
       "js2xmlparser": "^4.0.0",
       "json-stable-stringify": "^1.0.1",
-      "knex": "^0.19.2",
-      "lambda-api": "^0.10.2",
-      "objection": "^1.6.9",
-      "pg": "^7.12.1"
+      "knex": "^0.20.3",
+      "lambda-api": "^0.10.4",
+      "objection": "^2.0.2",
+      "pg": "^7.14.0"
    },
    "devDependencies": {
-      "@types/aws-lambda": "^8.10.17",
+      "@types/aws-lambda": "^8.10.36",
       "@types/json-stable-stringify": "^1.0.32",
       "@types/node": "^10.14.16",
       "serverless-dotenv-plugin": "^2.1.1",
       "serverless-webpack": "^5.2.0",
-      "source-map-support": "^0.5.10",
-      "ts-loader": "^5.3.3",
-      "typescript": "3.5.3",
-      "webpack": "^4.29.0"
+      "source-map-support": "^0.5.16",
+      "ts-loader": "^6.2.1",
+      "typescript": "3.7.2",
+      "webpack": "^4.41.2"
    }
 }
