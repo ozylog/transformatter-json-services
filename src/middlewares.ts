@@ -1,7 +1,8 @@
 import Json from '@src/db/models/Json';
-import { Heror, NotFoundError, NotAcceptableError, BadRequestError } from 'heror';
+import { Heror, NotFoundError, NotAcceptableError, BadRequestError, UnprocessableEntityError } from 'heror';
 import { Request, Response, NextFunction } from 'lambda-api';
 import jsonStableStringify from 'json-stable-stringify';
+import js2xmlparser from 'js2xmlparser';
 import * as validators from '@src/validators';
 import { Operator, Format } from '@src/db/knex';
 
@@ -16,26 +17,32 @@ export async function findById(req: validators.findByIdReq) {
 }
 
 export async function operate(req: validators.OperateReq) {
-  validators.operate(req);
   const { input, inputFormat, operator, outputFormat, outputSpace, outputStable  } = req.body;
   let result;
+  let json;
+
+  validators.operate(req);
+
+  try {
+    json = JSON.parse(input);
+  } catch (err) {
+    throw new BadRequestError('Invalid JSON');
+  }
+
+  if (json === null || json === undefined || typeof json !== 'object') throw new BadRequestError('Invalid JSON');
+
+  if (outputStable) {
+    json = jsonStableStringify(json, { space: outputSpace || 0 });
+  } else {
+    json = JSON.stringify(json, null, outputSpace || 0);
+  }
 
   if (operator === Operator.BEAUTIFY_JSON && inputFormat === Format.JSON && outputFormat === Format.JSON) {
-    let json;
-
-    try {
-      json = JSON.parse(input);
-    } catch (err) {
-      throw new BadRequestError('Invalid JSON');
-    }
-
-    if (json === null || json === undefined || typeof json !== 'object') throw new BadRequestError('Invalid JSON');
-
-    if (outputStable) {
-      result = jsonStableStringify(json, { space: outputSpace || 0 });
-    } else {
-      result = JSON.stringify(json, null, outputSpace || 0);
-    }
+    result = json;
+  } else if (operator === Operator.CONVERT_JSON_TO_XML && inputFormat === Format.JSON && outputFormat === Format.XML) {
+    result = js2xmlparser.parse('root', json);
+  } else {
+    throw new UnprocessableEntityError(`Invalid format`);
   }
 
   return { output: result };
