@@ -47,7 +47,7 @@ export function operate(req: OperateReq) {
           },
           operator: {
             type: 'string',
-            enum: [ Operator.BEAUTIFY_JSON ]
+            enum: [ Operator.BEAUTIFY_JSON, Operator.CONVERT_JSON_TO_XML ]
           },
           outputFormat: {
             type: 'string',
@@ -91,8 +91,8 @@ export interface OperateReq extends Request {
   body: {
     input: string;
     inputFormat: Format.JSON;
-    operator: Operator.BEAUTIFY_JSON,
-    outputFormat: Format.JSON;
+    operator: Operator,
+    outputFormat: Format;
     outputSpace: number;
     outputStable: boolean;
   };

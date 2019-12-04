@@ -13,6 +13,7 @@
       "ajv": "^6.10.2",
       "aws-sdk": "^2.516.0",
       "heror": "^1.0.0",
+      "js2xmlparser": "^4.0.0",
       "json-stable-stringify": "^1.0.1",
       "knex": "^0.19.2",
       "lambda-api": "^0.10.2",
