@@ -51,7 +51,7 @@ export function operate(req: OperateReq) {
           },
           outputFormat: {
             type: 'string',
-            enum: [ Format.JSON ]
+            enum: [ Format.JSON, Format.XML ]
           },
           outputSpace: {
             type: 'integer',
