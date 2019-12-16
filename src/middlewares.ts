@@ -2,7 +2,7 @@ import Json from '@src/db/models/Json';
 import { Heror, NotFoundError, NotAcceptableError, BadRequestError, UnprocessableEntityError } from 'heror';
 import { Request, Response, NextFunction } from 'lambda-api';
 import jsonStableStringify from 'json-stable-stringify';
-import js2xmlparser from 'js2xmlparser';
+import jsontoxml from 'jsontoxml';
 import * as validators from '@src/validators';
 import { Operator, Format } from '@src/db/knex';
 
@@ -16,7 +16,7 @@ export async function findById(req: validators.findByIdReq) {
   return json;
 }
 
-export async function operate(req: validators.OperateReq) {
+export function operate(req: validators.OperateReq) {
   const { input, inputFormat, operator, outputFormat, outputSpace, outputStable  } = req.body;
   let result;
   let json;
@@ -37,10 +37,16 @@ export async function operate(req: validators.OperateReq) {
     json = JSON.stringify(json, null, outputSpace || 0);
   }
 
-  if (operator === Operator.BEAUTIFY_JSON && inputFormat === Format.JSON && outputFormat === Format.JSON) {
+  if (
+    operator === Operator.BEAUTIFY_JSON
+    && inputFormat === Format.JSON
+    && outputFormat === Format.JSON) {
     result = json;
-  } else if (operator === Operator.CONVERT_JSON_TO_XML && inputFormat === Format.JSON && outputFormat === Format.XML) {
-    result = js2xmlparser.parse('root', json);
+  } else if (
+    operator === Operator.CONVERT_JSON_TO_XML
+    && inputFormat === Format.JSON
+    && outputFormat === Format.XML) {
+    result = jsontoxml(json, { prettyPrint: true, indent: Array(outputSpace + 1).join(' ') });
   } else {
     throw new UnprocessableEntityError(`Invalid format`);
   }
