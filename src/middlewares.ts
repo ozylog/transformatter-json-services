@@ -47,6 +47,7 @@ export function operate(req: validators.OperateReq) {
     && inputFormat === Format.JSON
     && outputFormat === Format.XML) {
     result = jsontoxml(json, { prettyPrint: true, indent: Array(outputSpace + 1).join(' ') });
+    result = result.substr(1, result.length - 2);
   } else {
     throw new UnprocessableEntityError(`Invalid format`);
   }

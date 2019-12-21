@@ -52,7 +52,7 @@ describe('#middlewares', () => {
         });
 
         test('should return XML', () => {
-          expect(result.output).toEqual('\n<hello>\n  <test>world</test>\n</hello>\n');
+          expect(result.output).toEqual('<hello>\n  <test>world</test>\n</hello>');
         });
       });
     });

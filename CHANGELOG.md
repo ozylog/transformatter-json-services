@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.3.0] - 2019-12-22
+### Added
+- Convert JSON to XML function
+
 ## [v0.2.0] - 2019-09-15
 ## Changed
 - Change path from `/v1/*` to `/api/v1/jsons/*`
